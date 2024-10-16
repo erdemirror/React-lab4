@@ -1,0 +1,103 @@
+/* General reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif; /* Clean, modern font */
+  background: linear-gradient(
+    135deg,
+    #6a11cb,
+    #2575fc
+  ); /* Gradient background */
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Centering the content */
+.container {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Light overlay to make content stand out */
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Form inputs */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Cool Button */
+button {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 16px;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+}
+
+/* Links */
+a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Headings */
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* Place list */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* Make the form responsive */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+}
