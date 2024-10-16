@@ -136,6 +136,9 @@ const EditPlace = () => {
       </form>
     </div>
   );
+  {
+    /* asdasdasdasda*/
+  }
 };
 
 export default EditPlace;
