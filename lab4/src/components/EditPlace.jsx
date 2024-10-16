@@ -7,41 +7,32 @@ const EditPlace = () => {
   const { currentUser } = useContext(AuthContext); // Get the current user
   const navigate = useNavigate();
 
+  // Get places from localStorage
   const places = JSON.parse(localStorage.getItem("places")) || [];
-  const place = places.find((p) => p.id === parseInt(id)); // Find the place by ID
+  // Find the specific place to edit
+  const place = places.find((p) => p.id === parseInt(id));
 
-  // Initialize state with existing place data or empty strings
-  const [name, setName] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [country, setCountry] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [image, setImage] = useState(null);
-
-  // Pre-fill the form with existing data when the component loads
-  useEffect(() => {
-    if (place) {
-      setName(place.name || "");
-      setTitle(place.title || "");
-      setDescription(place.description || "");
-      setCountry(place.country || "");
-      setLongitude(place.longitude || "");
-      setLatitude(place.latitude || "");
-      setImage(place.image || null); // Set image if available
-    }
-  }, [place]);
+  // Initialize state with existing place data
+  const [name, setName] = useState(place ? place.name : "");
+  const [title, setTitle] = useState(place ? place.title : "");
+  const [description, setDescription] = useState(
+    place ? place.description : ""
+  );
+  const [country, setCountry] = useState(place ? place.country : "");
+  const [longitude, setLongitude] = useState(place ? place.longitude : "");
+  const [latitude, setLatitude] = useState(place ? place.latitude : "");
+  const [image, setImage] = useState(place ? place.image : null); // Load image if available
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setImage(reader.result); // Convert the image to Base64 and set it
+      setImage(reader.result); // Set the Base64 string as the image state
     };
 
     if (file) {
-      reader.readAsDataURL(file); // Read the file as a Base64 string
+      reader.readAsDataURL(file); // Convert image to Base64
     }
   };
 
@@ -49,16 +40,18 @@ const EditPlace = () => {
     e.preventDefault();
 
     const updatedPlace = {
-      ...place, // Keep other properties the same
+      id: parseInt(id), // Keep the same ID
+      userId: currentUser.id, // Keep userId same
       name,
       title,
       description,
       country,
       longitude,
       latitude,
-      image, // Update the image if changed
+      image,
     };
 
+    // Update places array in localStorage
     const updatedPlaces = places.map((p) =>
       p.id === parseInt(id) ? updatedPlace : p
     );
@@ -75,7 +68,7 @@ const EditPlace = () => {
           <label>Place Name:</label>
           <input
             type="text"
-            value={name}
+            value={name} // Controlled input
             onChange={(e) => setName(e.target.value)} // Allow editing
             required
           />
@@ -84,7 +77,7 @@ const EditPlace = () => {
           <label>Place Title:</label>
           <input
             type="text"
-            value={title}
+            value={title} // Controlled input
             onChange={(e) => setTitle(e.target.value)} // Allow editing
             required
           />
@@ -92,7 +85,7 @@ const EditPlace = () => {
         <div>
           <label>Place Description:</label>
           <textarea
-            value={description}
+            value={description} // Controlled textarea
             onChange={(e) => setDescription(e.target.value)} // Allow editing
             required
           ></textarea>
@@ -101,7 +94,7 @@ const EditPlace = () => {
           <label>Country:</label>
           <input
             type="text"
-            value={country}
+            value={country} // Controlled input
             onChange={(e) => setCountry(e.target.value)} // Allow editing
             required
           />
@@ -110,7 +103,7 @@ const EditPlace = () => {
           <label>Longitude:</label>
           <input
             type="number"
-            value={longitude}
+            value={longitude} // Controlled input
             onChange={(e) => setLongitude(e.target.value)} // Allow editing
             required
           />
@@ -119,7 +112,7 @@ const EditPlace = () => {
           <label>Latitude:</label>
           <input
             type="number"
-            value={latitude}
+            value={latitude} // Controlled input
             onChange={(e) => setLatitude(e.target.value)} // Allow editing
             required
           />
